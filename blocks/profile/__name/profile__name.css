@@ -7,3 +7,10 @@
   grid-area: tT;
   align-self: baseline;
 }
+
+@media screen and (max-width: 420px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 33px;
+  }
+}

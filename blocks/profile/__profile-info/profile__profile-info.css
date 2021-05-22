@@ -5,3 +5,10 @@
     "tJ ."
   ;
 }
+
+@media screen and (max-width: 770px) {
+  .profile__profile-info {
+    margin-top: 26px;
+    text-align: center;
+  }
+}

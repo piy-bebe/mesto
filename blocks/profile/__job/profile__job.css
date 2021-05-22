@@ -5,3 +5,10 @@
   line-height: 22px;
   grid-area: tJ;
 }
+
+@media screen and (max-width: 420px) {
+  .profile__name {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
