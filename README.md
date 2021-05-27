@@ -16,3 +16,7 @@
 1. Создать кнопку "Добавление".
 2. Удаление фотографий.
 3. Ставить лайки.
+
+**GitHub Pages**
+
+[GitHub Pages]: (https://piy-bebe.github.io/mesto/index.html)
