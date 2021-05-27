@@ -4,11 +4,17 @@
   font-size: 18px;
   line-height: 22px;
   grid-area: tJ;
+  max-width: 370px;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 420px) {
-  .profile__name {
+  .profile__job {
     font-size: 14px;
     line-height: 17px;
+    max-width: 230px;
   }
 }

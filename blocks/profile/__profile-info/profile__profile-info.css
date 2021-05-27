@@ -1,8 +1,8 @@
 .profile__profile-info {
   display: grid;
   grid-template-areas: 
-    "tT b"
-    "tJ ."
+    "tT b ."
+    "tJ tJ tJ"
   ;
 }
 

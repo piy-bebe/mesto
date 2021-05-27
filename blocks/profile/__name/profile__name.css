@@ -6,11 +6,25 @@
   line-height: 48px;
   grid-area: tT;
   align-self: baseline;
+  max-width: 350px;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 770px) {
+  .profile__name {
+    margin-right: 30px;
+  }
 }
 
 @media screen and (max-width: 420px) {
   .profile__name {
     font-size: 27px;
     line-height: 33px;
+    max-width: 240px;
+    margin-right: 15px;
+
   }
 }
