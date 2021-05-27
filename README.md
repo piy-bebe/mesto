@@ -19,4 +19,4 @@
 
 **GitHub Pages**
 
-[GitHub Pages](https://piy-bebe.github.io/mesto/index.html)
+[Посмотреть сайт](https://piy-bebe.github.io/mesto/index.html)
