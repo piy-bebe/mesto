@@ -2,8 +2,7 @@
   display: grid;
   grid-template-areas: 
     "tT b ."
-    "tJ tJ tJ"
-  ;
+    "tJ tJ tJ";
 }
 
 @media screen and (max-width: 770px) {
