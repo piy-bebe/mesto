@@ -9,4 +9,9 @@
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
+  cursor: pointer;
+}
+
+.popup__submit:hover {
+  opacity: 0.8;
 }
