@@ -1,5 +1,6 @@
 .page__button-hover {
   cursor: pointer;
+  transition: .2s;
 }
 
 .page__button-hover:hover {

@@ -4,4 +4,10 @@
   height: 19px;
   border: none;
   background-color: transparent;
+  transition: .2s;
+}
+
+.elements__like:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
