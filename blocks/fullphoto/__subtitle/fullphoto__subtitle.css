@@ -1,0 +1,9 @@
+.fullphoto__subtitle {
+  grid-row: 1 / -1;
+  grid-column: 1 /-1;
+  position: absolute;
+  font-size: 12px;
+  line-height: 15px;
+  bottom: -25px;
+  margin: 0;
+}

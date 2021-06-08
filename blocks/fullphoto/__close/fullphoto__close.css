@@ -1,0 +1,23 @@
+.fullphoto__close {
+  background-image: url(../../../images/close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 580px) {
+  .fullphoto__close {
+    right: 0;
+    top: -53px;
+    width: 26px;
+    height: 26px;
+    background-size: 40px;
+  }
+}

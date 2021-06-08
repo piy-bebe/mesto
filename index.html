@@ -1,70 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages/index.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="pages/index.css" />
     <title>Место</title>
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="images/logo.svg" alt="Логотип">
+      <img class="header__logo" src="images/logo.svg" alt="Логотип" />
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/Avatar.png" class="profile__avatar" alt="Аватар">
+        <img src="images/Avatar.png" class="profile__avatar" alt="Аватар" />
         <div class="profile__profile-info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
-          <button type="button" class="profile__edit-button page__button-hover"></button>
+          <button
+            type="button"
+            class="profile__edit-button page__button-hover"
+          ></button>
         </div>
-        <button type="button" class="profile__add-button page__button-hover"></button>
+        <button
+          type="button"
+          class="profile__add-button page__button-hover"
+        ></button>
       </section>
-      <section class="elements">
-        <article  class="elements__element">
-            <img src="images/karachaevsk.png" class="elements__photo" alt="Карачаевск">
-            <div class="elements__footer">
-              <h2 class="elements__title">Карачаевск</h2>
-              <button type="button" class="elements__like"></button>
-            </div>
-        </article>
-        <article  class="elements__element">
-          <img src="images/elbrus.png" class="elements__photo" alt="Эльбрус">
-          <div class="elements__footer">
-            <h2 class="elements__title">Гора Эльбрус</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </article>
-        <article  class="elements__element">
-          <img src="images/dombay.png" class="elements__photo" alt="Домбай">
-          <div class="elements__footer">
-            <h2 class="elements__title">Домбай</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </article>
-        <article  class="elements__element">
-          <img src="images/elbrus.png" class="elements__photo" alt="Эльбрус">
-          <div class="elements__footer">
-            <h2 class="elements__title">Гора Эльбрус</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </article>
-        <article  class="elements__element">
-          <img src="images/dombay.png" class="elements__photo" alt="Домбай">
-          <div class="elements__footer">
-            <h2 class="elements__title">Домбай</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </article>
-        <article  class="elements__element">
-          <img src="images/karachaevsk.png" class="elements__photo" alt="Карачаево-Черкесия">
-          <div class="elements__footer">
-            <h2 class="elements__title">Карачаево-Черкесия</h2>
-            <button type="button" class="elements__like"></button>
-          </div>
-        </article>
-      </section>
+      <section class="elements"></section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -73,13 +36,51 @@
       <div class="popup__container">
         <button type="button" class="popup__close page__button-hover"></button>
         <form name="profile-edit" class="popup__form">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" name="fieldName" class="popup__field" id="fieldName">
-          <input type="text" name="fieldJob" class="popup__field" id="fieldJob">
+          <h2 class="popup__title"></h2>
+          <input
+            type="text"
+            name="firstField"
+            class="popup__field"
+            id="firstField"
+            required
+          />
+          <input
+            type="text"
+            name="secondField"
+            class="popup__field"
+            id="secondField"
+            required
+          />
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
       </div>
     </div>
+
+    <template id="card">
+      <article class="elements__element">
+        <button type="button" class="elements__trash"></button>
+        <img class="elements__photo" />
+        <div class="elements__footer">
+          <h2 class="elements__title"></h2>
+          <button type="button" class="elements__like"></button>
+        </div>
+      </article>
+    </template>
+
+    <template id="photo">
+      <div class="fullphoto">
+        <div class="fullphoto__container">
+          <button
+            type="button"
+            class="fullphoto__close page__button-hover"
+          ></button>
+          <img class="fullphoto__image" alt="" />
+          <p class="fullphoto__subtitle">123</p>
+        </div>
+      </div>
+    </template>
+
+    <script src="scripts/script.js"></script>
     <script src="scripts/popup.js"></script>
   </body>
 </html>

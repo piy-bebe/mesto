@@ -1,4 +1,5 @@
 .elements__element {
+  position: relative;
   /* height: 361px; */
   background-color: #ffffff;
   color: #000000;

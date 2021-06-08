@@ -1,0 +1,7 @@
+.fullphoto__image {
+  width: 75vw;
+  height: 75vh;
+  object-fit: cover;
+  grid-row: 1 / -1;
+  grid-column: 1 /-1;
+}
