@@ -32,26 +32,62 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup" id="profilePopup">
       <div class="popup__container">
-        <button type="button" class="popup__close page__button-hover"></button>
+        <button
+          type="button"
+          class="popup__close page__button-hover"
+          id="profileClose"
+        ></button>
         <form name="profile-edit" class="popup__form">
-          <h2 class="popup__title"></h2>
+          <h2 class="popup__title">Редактировать профиль</h2>
           <input
             type="text"
             name="firstField"
             class="popup__field"
             id="firstField"
-            required
+            placeholder="Имя"
           />
           <input
             type="text"
             name="secondField"
             class="popup__field"
             id="secondField"
-            required
+            placeholder="Описание"
           />
-          <button type="submit" class="popup__submit">Сохранить</button>
+          <button type="submit" class="popup__submit" id="profileSave">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" id="cardPopup">
+      <div class="popup__container">
+        <button
+          type="button"
+          class="popup__close page__button-hover"
+          id="cardClose"
+        ></button>
+        <form name="profile-edit" class="popup__form">
+          <h2 class="popup__title">Новое место</h2>
+          <input
+            type="text"
+            name="firstField"
+            class="popup__field"
+            id="firstField"
+            placeholder="Название"
+          />
+          <input
+            type="text"
+            name="secondField"
+            class="popup__field"
+            id="secondField"
+            placeholder="Ссылка на картинку"
+          />
+          <button type="submit" class="popup__submit" id="cardAdd">
+            Создать
+          </button>
         </form>
       </div>
     </div>
@@ -67,18 +103,17 @@
       </article>
     </template>
 
-    <template id="photo">
-      <div class="fullphoto">
-        <div class="fullphoto__container">
-          <button
-            type="button"
-            class="fullphoto__close page__button-hover"
-          ></button>
-          <img class="fullphoto__image" alt="" />
-          <p class="fullphoto__subtitle">123</p>
-        </div>
+    <div class="fullphoto">
+      <div class="fullphoto__container">
+        <button
+          type="button"
+          class="fullphoto__close page__button-hover"
+          id="photoClose"
+        ></button>
+        <img class="fullphoto__image" alt="" />
+        <p class="fullphoto__subtitle"></p>
       </div>
-    </template>
+    </div>
 
     <script src="scripts/script.js"></script>
     <script src="scripts/popup.js"></script>

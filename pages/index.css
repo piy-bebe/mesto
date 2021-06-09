@@ -36,6 +36,7 @@
 @import url(../blocks/popup/__close/popup__close.css);
 
 @import url(../blocks/fullphoto/fullphoto.css);
+@import url(../blocks/fullphoto/_opened/fullphoto_opened.css);
 @import url(../blocks/fullphoto/__container/fullphoto__container.css);
 @import url(../blocks/fullphoto/__close/fullphoto__close.css);
 @import url(../blocks/fullphoto/__image/fullphoto__image.css);
