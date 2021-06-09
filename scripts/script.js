@@ -107,9 +107,9 @@ const popupButtonAdd = document.querySelector('#cardAdd')
 const showPopup = (evt) => {
   const target = evt.target
   if (target.classList.contains('profile__edit-button')) {
-    profilePopup.querySelector('#firstField').value =
+    profilePopup.querySelector('#firstFieldProfile').value =
       document.querySelector('.profile__name').textContent
-    profilePopup.querySelector('#secondField').value =
+    profilePopup.querySelector('#secondFieldProfile').value =
       document.querySelector('.profile__job').textContent
     profilePopup.classList.add('popup_opened')
   } else if (target.classList.contains('profile__add-button')) {
@@ -121,9 +121,9 @@ const showPopup = (evt) => {
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault()
   document.querySelector('.profile__name').textContent =
-    profilePopup.querySelector('#firstField').value
+    profilePopup.querySelector('#firstFieldProfile').value
   document.querySelector('.profile__job').textContent =
-    profilePopup.querySelector('#secondField').value
+    profilePopup.querySelector('#secondFieldProfile').value
   removePopup()
 }
 
@@ -147,11 +147,11 @@ const handleCardFormSubmit = (evt) => {
     .querySelector('.elements__element')
     .cloneNode(true)
   const cardTitle = cardCopy.querySelector('.elements__title')
-  cardTitle.textContent = cardPopup.querySelector('#firstField').value
+  cardTitle.textContent = cardPopup.querySelector('#firstFieldCard').value
 
   const cardPhoto = cardCopy.querySelector('.elements__photo')
-  cardPhoto.alt = cardPopup.querySelector('#firstField').value
-  cardPhoto.src = cardPopup.querySelector('#secondField').value
+  cardPhoto.alt = cardPopup.querySelector('#firstFieldCard').value
+  cardPhoto.src = cardPopup.querySelector('#secondFieldCard').value
   cardCopy
     .querySelector('.elements__like')
     .addEventListener('click', handleLikeClick)
@@ -173,73 +173,3 @@ popupButtonAdd.addEventListener('click', handleCardFormSubmit)
 popupButtonSave.addEventListener('click', handleProfileFormSubmit)
 popupProfile.addEventListener('click', showPopup)
 popupCard.addEventListener('click', showPopup)
-
-// const handleCardFormSubmit = (evt) => {
-//   evt.preventDefault()
-//   const cardTemplate = document.querySelector('#card').content
-//   const cardElement = cardTemplate
-//     .querySelector('.elements__element')
-//     .cloneNode(true)
-//   cardElement.querySelector('.elements__title').textContent = firstField.value
-//   cardElement.querySelector('.elements__photo').src = secondField.value
-//   const cardList = document.querySelector('.elements')
-//   if (cardList.length) {
-//     const firstCard = document.querySelectorAll('.elements__element')[0]
-//     const parentDiv = firstCard.parentNode
-//     parentDiv.insertBefore(cardElement, firstCard)
-//   } else {
-//     document.querySelector('.elements').appendChild(cardElement)
-//   }
-//   popup.classList.remove('popup_opened')
-// }
-
-// const handleProfileFormSubmit = (evt) => {
-//   profileName.textContent = firstField.value
-//   profileJob.textContent = secondField.value
-//   popup.classList.remove('popup_opened')
-// }
-
-// popupButtonEdit.addEventListener('click', handleProfileFormSubmit)
-// popupButtonAdd.addEventListener('click', handleCardFormSubmit)
-
-// closeButton.addEventListener('click', togglePopup)
-// formElement.addEventListener('submit', submitForm)
-
-// elements.addEventListener('click', (e) => {
-//   const target = e.target.closest('.elements__like')
-//   if (!target) return
-//   target.classList.toggle('elements__like_active')
-// })
-
-// elements.addEventListener('click', (e) => {
-//   const target = e.target.closest('.elements__trash')
-//   if (!target) {
-//     return
-//   }
-//   target.parentNode.remove()
-// })
-
-// elements.addEventListener('click', (e) => {
-//   const target = e.target.closest('.elements__photo')
-//   if (!target) {
-//     return
-//   }
-//   const card = e.target.parentNode
-//   const textTitle = card.querySelector('.elements__title')
-//   const fullPhotoTemplate = document.querySelector('#photo').content
-//   const photoElement = fullPhotoTemplate
-//     .querySelector('.fullphoto')
-//     .cloneNode(true)
-//   photoElement.querySelector('.fullphoto__image').src = target.src
-//   photoElement.querySelector('.fullphoto__subtitle').textContent =
-//     textTitle.textContent
-//   const body = document.querySelector('.page')
-//   body.append(photoElement)
-// })
-
-// const page = document.querySelector('.page')
-// page.addEventListener('click', (e) => {
-//   const target = e.target.closest('.fullphoto__close')
-//   if (!target) return
-//   document.querySelector('.fullphoto').remove()
-// })
