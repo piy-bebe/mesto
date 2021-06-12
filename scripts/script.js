@@ -14,6 +14,9 @@ const profileNameInput = profilePopup.querySelector('#firstFieldProfile')
 const profileJob = document.querySelector('.profile__job')
 const profileJobInput = profilePopup.querySelector('#secondFieldProfile')
 
+const cardNameInput = cardPopup.querySelector('#firstFieldCard')
+const cardLinkInput = cardPopup.querySelector('#secondFieldCard')
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -122,8 +125,8 @@ const handleProfileFormSubmit = (evt) => {
 // Добавить карточку
 const handleCardFormSubmit = (evt) => {
   evt.preventDefault()
-  const name = cardPopup.querySelector('#firstFieldCard').value
-  const link = cardPopup.querySelector('#secondFieldCard').value
+  const name = cardNameInput.value
+  const link = cardLinkInput.value
   cardList.prepend(createCard(name, link))
   closePopup()
 }
@@ -136,9 +139,7 @@ popupButtonAdd.addEventListener('click', handleCardFormSubmit)
 popupButtonSave.addEventListener('click', handleProfileFormSubmit)
 popupProfile.addEventListener('click', () => {
   openPopup(profilePopup)
-  profilePopup.querySelector('#firstFieldProfile').value =
-    profileName.textContent
-  profilePopup.querySelector('#secondFieldProfile').value =
-    profileJob.textContent
+  profileNameInput.value = profileName.textContent
+  profileJobInput.value = profileJob.textContent
 })
 popupCard.addEventListener('click', () => openPopup(cardPopup))
