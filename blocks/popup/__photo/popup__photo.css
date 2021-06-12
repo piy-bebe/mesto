@@ -1,4 +1,4 @@
-.fullphoto__container {
+.popup__photo {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;

@@ -1,11 +1,18 @@
-const elements = document.querySelector('.elements')
-const formElement = document.querySelector('.popup__form')
 // Список карточек
 const cardList = document.querySelector('.elements')
 // Попап редактирования профиля
 const profilePopup = document.querySelector('#profilePopup')
 // Попап добавление карточки
 const cardPopup = document.querySelector('#cardPopup')
+// Попап картинка
+const popupPhoto = document.querySelector('#photoPopup')
+const popupPhotoImage = document.querySelector('.popup__image')
+const popupPhotoSubtitle = document.querySelector('.popup__subtitle')
+
+const profileName = document.querySelector('.profile__name')
+const profileNameInput = profilePopup.querySelector('#firstFieldProfile')
+const profileJob = document.querySelector('.profile__job')
+const profileJobInput = profilePopup.querySelector('#secondFieldProfile')
 
 const initialCards = [
   {
@@ -33,15 +40,15 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ]
-// Удалить попап
-const removePopup = (evt) => {
-  document.querySelector('.popup_opened').classList.remove('popup_opened')
+
+// Открыть попап
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened')
 }
 
-const removePhoto = (evt) => {
-  document
-    .querySelector('.fullphoto_opened')
-    .classList.remove('fullphoto_opened')
+// Удалить попап
+const closePopup = (evt) => {
+  document.querySelector('.popup_opened').classList.remove('popup_opened')
 }
 
 // Обработчик лайков
@@ -59,99 +66,21 @@ const handleTrashClick = (evt) => {
 }
 
 // Открыть фотографию
-const handlePhotoClick = (evt) => {
-  const target = evt.target.closest('.elements__photo')
-  const parent = target.closest('.elements__element')
-  const title = parent.querySelector('.elements__title').textContent
-  document.querySelector('.fullphoto__image').src = target.src
-  document.querySelector('.fullphoto__subtitle').textContent = title
-  document.querySelector('.fullphoto').classList.add('fullphoto_opened')
+const handlePhotoClick = (name, link) => {
+  popupPhotoImage.src = link
+  popupPhotoSubtitle.textContent = name
+  openPopup(popupPhoto)
 }
 
-const createCard = (cards) => {
-  const cardList = document.querySelector('.elements')
-  const cardTemplate = document.querySelector('#card').content
-
-  cards.forEach((c) => {
-    const cardCopy = cardTemplate
-      .querySelector('.elements__element')
-      .cloneNode(true)
-    cardCopy.querySelector('.elements__title').textContent = c.name
-    cardCopy.querySelector('.elements__photo').src = c.link
-    cardCopy
-      .querySelector('.elements__like')
-      .addEventListener('click', handleLikeClick)
-    cardCopy
-      .querySelector('.elements__trash')
-      .addEventListener('click', handleTrashClick)
-    cardCopy
-      .querySelector('.elements__photo')
-      .addEventListener('click', handlePhotoClick)
-    cardList.append(cardCopy)
-  })
-}
-
-createCard(initialCards)
-
-// Попапы
-const popupProfile = document.querySelector('.profile__edit-button')
-const popupCard = document.querySelector('.profile__add-button')
-// Кнопки для попапов
-const popupButtonCloseCard = document.querySelector('#cardClose')
-const popupButtonCloseProfile = document.querySelector('#profileClose')
-const popupButtonClosePhoto = document.querySelector('#photoClose')
-const popupButtonSave = document.querySelector('#profileSave')
-const popupButtonAdd = document.querySelector('#cardAdd')
-
-// Открыть попап
-const showPopup = (evt) => {
-  const target = evt.target
-  if (target.classList.contains('profile__edit-button')) {
-    profilePopup.querySelector('#firstFieldProfile').value =
-      document.querySelector('.profile__name').textContent
-    profilePopup.querySelector('#secondFieldProfile').value =
-      document.querySelector('.profile__job').textContent
-    profilePopup.classList.add('popup_opened')
-  } else if (target.classList.contains('profile__add-button')) {
-    cardPopup.classList.add('popup_opened')
-  }
-}
-
-// Сохранить профиль
-const handleProfileFormSubmit = (evt) => {
-  evt.preventDefault()
-  document.querySelector('.profile__name').textContent =
-    profilePopup.querySelector('#firstFieldProfile').value
-  document.querySelector('.profile__job').textContent =
-    profilePopup.querySelector('#secondFieldProfile').value
-  removePopup()
-}
-
-// Закрыть попап
-const handleCloseCard = (evt) => {
-  removePopup()
-}
-
-const handleCloseProfile = (evt) => {
-  removePopup()
-}
-
-const handleClosePhoto = (evt) => {
-  removePhoto()
-}
-// Добавить карточку
-const handleCardFormSubmit = (evt) => {
-  evt.preventDefault()
+const createCard = (name, link) => {
   const cardTemplate = document.querySelector('#card').content
   const cardCopy = cardTemplate
     .querySelector('.elements__element')
     .cloneNode(true)
-  const cardTitle = cardCopy.querySelector('.elements__title')
-  cardTitle.textContent = cardPopup.querySelector('#firstFieldCard').value
+  cardCopy.querySelector('.elements__title').textContent = name
+  cardCopy.querySelector('.elements__photo').alt = name
+  cardCopy.querySelector('.elements__photo').src = link
 
-  const cardPhoto = cardCopy.querySelector('.elements__photo')
-  cardPhoto.alt = cardPopup.querySelector('#firstFieldCard').value
-  cardPhoto.src = cardPopup.querySelector('#secondFieldCard').value
   cardCopy
     .querySelector('.elements__like')
     .addEventListener('click', handleLikeClick)
@@ -160,16 +89,56 @@ const handleCardFormSubmit = (evt) => {
     .addEventListener('click', handleTrashClick)
   cardCopy
     .querySelector('.elements__photo')
-    .addEventListener('click', handlePhotoClick)
-  cardList.prepend(cardCopy)
-  removePopup()
+    .addEventListener('click', () => handlePhotoClick(name, link))
+  return cardCopy
+}
+
+const initializeCards = (cards) => {
+  cards.forEach((card) => {
+    cardList.append(createCard(card.name, card.link))
+  })
+}
+
+initializeCards(initialCards)
+
+// Попапы
+const popupProfile = document.querySelector('.profile__edit-button')
+const popupCard = document.querySelector('.profile__add-button')
+// Кнопки для попапов
+const popupButtonCloseCard = document.querySelector('#cardClose')
+const popupButtonClosePhoto = document.querySelector('#photoClose')
+const popupButtonCloseProfile = document.querySelector('#profileClose')
+const popupButtonSave = document.querySelector('#profileSave')
+const popupButtonAdd = document.querySelector('#cardAdd')
+
+// Сохранить профиль
+const handleProfileFormSubmit = (evt) => {
+  evt.preventDefault()
+  profileName.textContent = profileNameInput.value
+  profileJob.textContent = profileJobInput.value
+  closePopup()
+}
+
+// Добавить карточку
+const handleCardFormSubmit = (evt) => {
+  evt.preventDefault()
+  const name = cardPopup.querySelector('#firstFieldCard').value
+  const link = cardPopup.querySelector('#secondFieldCard').value
+  cardList.prepend(createCard(name, link))
+  closePopup()
 }
 
 // Обработчики событий
-popupButtonCloseCard.addEventListener('click', handleCloseCard)
-popupButtonCloseProfile.addEventListener('click', handleCloseProfile)
-popupButtonClosePhoto.addEventListener('click', handleClosePhoto)
+popupButtonCloseCard.addEventListener('click', () => closePopup())
+popupButtonCloseProfile.addEventListener('click', () => closePopup())
+popupButtonClosePhoto.addEventListener('click', () => closePopup())
 popupButtonAdd.addEventListener('click', handleCardFormSubmit)
 popupButtonSave.addEventListener('click', handleProfileFormSubmit)
-popupProfile.addEventListener('click', showPopup)
-popupCard.addEventListener('click', showPopup)
+popupProfile.addEventListener('click', () => {
+  openPopup(profilePopup)
+  profilePopup.querySelector('#firstFieldProfile').value =
+    profileName.textContent
+  profilePopup.querySelector('#secondFieldProfile').value =
+    profileJob.textContent
+})
+popupCard.addEventListener('click', () => openPopup(cardPopup))
