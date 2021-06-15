@@ -39,23 +39,35 @@
           class="popup__close page__button-hover"
           id="profileClose"
         ></button>
-        <form name="profile-edit" class="popup__form">
+        <form name="profile-edit" class="popup__form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input
-            type="text"
-            name="firstFieldProfile"
-            class="popup__field"
-            id="firstFieldProfile"
-            placeholder="Имя"
-          />
-          <input
-            type="text"
-            name="secondFieldProfile"
-            class="popup__field"
-            id="secondFieldProfile"
-            placeholder="Описание"
-          />
-          <button type="submit" class="popup__submit" id="profileSave">
+          <label class="popup__field">
+            <input
+              type="text"
+              name="name-input"
+              class="popup__input"
+              id="name-input"
+              placeholder="Имя"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="name-input-error popup__input-error"></span>
+          </label>
+          <label class="popup__field">
+            <input
+              type="text"
+              name="job-input"
+              class="popup__input"
+              id="job-input"
+              placeholder="Описание"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="job-input-error popup__input-error"></span>
+          </label>
+          <button type="submit" class="popup__button" id="profileSave">
             Сохранить
           </button>
         </form>
@@ -69,23 +81,33 @@
           class="popup__close page__button-hover"
           id="cardClose"
         ></button>
-        <form name="profile-edit" class="popup__form">
+        <form name="profile-edit" class="popup__form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input
-            type="text"
-            name="firstFieldCard"
-            class="popup__field"
-            id="firstFieldCard"
-            placeholder="Название"
-          />
-          <input
-            type="text"
-            name="secondFieldCard"
-            class="popup__field"
-            id="secondFieldCard"
-            placeholder="Ссылка на картинку"
-          />
-          <button type="submit" class="popup__submit" id="cardAdd">
+          <label class="popup__field">
+            <input
+              type="text"
+              name="cardName-input"
+              class="popup__input"
+              id="cardName-input"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required
+            />
+            <span class="cardName-input-error popup__input-error"></span>
+          </label>
+          <label class="popup__field">
+            <input
+              type="url"
+              name="link-input"
+              class="popup__input"
+              id="link-input"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="link-input-error popup__input-error"></span>
+          </label>
+          <button type="submit" class="popup__button" id="cardAdd">
             Создать
           </button>
         </form>
@@ -116,6 +138,6 @@
     </template>
 
     <script src="scripts/script.js"></script>
-    <script src="scripts/popup.js"></script>
+    <script src="scripts/validate.js"></script>
   </body>
 </html>

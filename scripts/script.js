@@ -1,3 +1,4 @@
+
 // Список карточек
 const cardList = document.querySelector('.elements')
 // Попап редактирования профиля
@@ -10,12 +11,12 @@ const popupPhotoImage = document.querySelector('.popup__image')
 const popupPhotoSubtitle = document.querySelector('.popup__subtitle')
 
 const profileName = document.querySelector('.profile__name')
-const profileNameInput = profilePopup.querySelector('#firstFieldProfile')
+const profileNameInput = profilePopup.querySelector('#name-input')
 const profileJob = document.querySelector('.profile__job')
-const profileJobInput = profilePopup.querySelector('#secondFieldProfile')
+const profileJobInput = profilePopup.querySelector('#job-input')
 
-const cardNameInput = cardPopup.querySelector('#firstFieldCard')
-const cardLinkInput = cardPopup.querySelector('#secondFieldCard')
+const cardNameInput = cardPopup.querySelector('#cardName-input')
+const cardLinkInput = cardPopup.querySelector('#link-input')
 
 const initialCards = [
   {
@@ -47,6 +48,12 @@ const initialCards = [
 // Открыть попап
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
+  
+  popup.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('popup')) {
+      closePopup()
+    }
+  })
 }
 
 // Удалить попап
@@ -143,3 +150,10 @@ popupProfile.addEventListener('click', () => {
   profileJobInput.value = profileJob.textContent
 })
 popupCard.addEventListener('click', () => openPopup(cardPopup))
+
+document.addEventListener('keydown', (evt) => {
+  if(evt.key === 'Escape' && document.querySelector('.popup_opened')) {
+      closePopup()
+  }
+})
+

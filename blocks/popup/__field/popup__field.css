@@ -1,12 +1,5 @@
 .popup__field {
-  font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
-  max-width: 358px;
-  width: 100%;
-  height: 27px;
-  font-size: 14px;
-  line-height: 17px;
+  display: block;
 }
 
 .popup__field:first-of-type{
@@ -16,15 +9,4 @@
 
 .popup__field:last-of-type{
   margin-bottom: 48px;
-}
-
-.popup__field:focus {
-  outline: 0;
-  border-bottom: 1px solid #000000;
-}
-
-@media screen and (max-width: 449px) {
-  .popup__field {
-    width: 100%;
-  }
 }
