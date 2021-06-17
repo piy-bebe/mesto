@@ -18,47 +18,33 @@ const profileJobInput = profilePopup.querySelector('#job-input')
 const cardNameInput = cardPopup.querySelector('#cardName-input')
 const cardLinkInput = cardPopup.querySelector('#link-input')
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-]
+const overlays = document.querySelectorAll('.popup')
 
-// Открыть попап
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened')
-  
-  popup.addEventListener('click', (evt) => {
+overlays.forEach(overlay => {
+  overlay.addEventListener('click', (evt) => {
     if(evt.target.classList.contains('popup')) {
       closePopup()
     }
   })
+})
+
+const closeEscPopup = (e) => { 
+  if(e.key === 'Escape') { 
+      const popup = document.querySelector('.popup_opened')
+      closePopup(popup) 
+  } 
+}
+
+// Открыть попап
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeEscPopup)
 }
 
 // Удалить попап
 const closePopup = (evt) => {
   document.querySelector('.popup_opened').classList.remove('popup_opened')
+  document.removeEventListener('keydown', closeEscPopup)
 }
 
 // Обработчик лайков
@@ -151,9 +137,4 @@ popupProfile.addEventListener('click', () => {
 })
 popupCard.addEventListener('click', () => openPopup(cardPopup))
 
-document.addEventListener('keydown', (evt) => {
-  if(evt.key === 'Escape' && document.querySelector('.popup_opened')) {
-      closePopup()
-  }
-})
 
