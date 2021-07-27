@@ -4,16 +4,23 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="pages/index.css" />
     <title>Место</title>
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="images/logo.svg" alt="Логотип" />
+      <img
+        class="header__logo"
+        src="<%=require('./images/logo.svg')%>"
+        alt="Логотип"
+      />
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/Avatar.png" class="profile__avatar" alt="Аватар" />
+        <img
+          src="<%=require('./images/Avatar.png')%>"
+          class="profile__avatar"
+          alt="Аватар"
+        />
         <div class="profile__profile-info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
@@ -141,7 +148,5 @@
         </div>
       </article>
     </template>
-
-    <script type="module" src="scripts/script.js"></script>
   </body>
 </html>

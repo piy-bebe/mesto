@@ -1,12 +1,12 @@
 const popupCloseButton = document.querySelector('#photoClose')
 
 export default class Card {
-  constructor(data, cardSelector, openPhoto, closePhoto) {
-    this._name = data.name
-    this._link = data.link
+  constructor({ name, link, cardSelector }, handleCardClick, handleCardClose) {
+    this._name = name
+    this._link = link
     this._cardSelector = cardSelector
-    this._openPhoto = openPhoto
-    this._closePhoto = closePhoto
+    this._handleCardClick = handleCardClick
+    this._handleCardClose = handleCardClose
   }
 
   _getTemplate() {
@@ -18,7 +18,7 @@ export default class Card {
     return cardElement
   }
 
-  _handleTrash(evt) {
+  _handleTrash() {
     this._element.remove()
   }
 
@@ -27,25 +27,6 @@ export default class Card {
     if (!target) return
     target.classList.toggle('elements__like_active')
   }
-
-  // _closeEscPopup(e) {
-  //   if (e.key === 'Escape') {
-  //     this._handleClosePopup()
-  //   }
-  // }
-
-  // _handleOpenPopup() {
-  //   popupPhotoImage.src = this._link
-  //   popupPhotoSubtitle.textContent = this._name
-  //   popupPhoto.classList.add('popup_opened')
-  //   document.addEventListener('keydown', (e) => {
-  //     this._closeEscPopup(e)
-  //   })
-  // }
-
-  // _handleClosePopup() {
-  //   popupPhoto.classList.remove('popup_opened')
-  // }
 
   _setEventListeners() {
     this._element.addEventListener('click', (evt) => {
@@ -59,10 +40,10 @@ export default class Card {
     this._element
       .querySelector('.elements__photo')
       .addEventListener('click', () => {
-        this._openPhoto()
+        this._handleCardClick()
       })
     popupCloseButton.addEventListener('click', () => {
-      this._closePhoto()
+      this._handleCardClose()
     })
   }
 

@@ -24,3 +24,16 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ]
+
+export const formSettings = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active',
+  buttonInactive: 'popup__button_inactive',
+}
+
+export const cardList = '.elements'
+export const profileName = document.querySelector('.profile__name')
+export const profileJob = document.querySelector('.profile__job')
