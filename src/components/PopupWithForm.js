@@ -10,7 +10,11 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close()
-    this._popupSelector.querySelector('.popup__form').reset()
+    if(this._form) { 
+      this._form.reset() 
+      this._form.querySelector('.popup__button').setAttribute("disabled", true)
+      this._form.querySelector('.popup__button').classList.add('popup__button_inactive')
+    }
   }
 
   _getInputValues() {
@@ -23,11 +27,17 @@ export default class PopupWithForm extends Popup {
     return this._formValues
   }
 
+  open() {
+    super.open()
+    document.querySelector('#name-input').value = document.querySelector('.profile__name').textContent
+    document.querySelector('#job-input').value = document.querySelector('.profile__job').textContent
+  }
+
   setEventListeners() {
     super.setEventListeners()
 
     this._buttonSelector.addEventListener('click', () => {
-      super.open()
+      this.open()
     })
 
     this._popupSelector

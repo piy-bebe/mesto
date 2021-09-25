@@ -16,5 +16,6 @@ export default class UserInfo {
   setUserInfo({ name, info }) {
     this._name.textContent = name
     this._info.textContent = info
+
   }
 }
