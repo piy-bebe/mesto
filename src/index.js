@@ -8,34 +8,44 @@ import PopupWithForm from './components/PopupWithForm.js'
 import UserInfo from './components/UserInfo.js'
 import { initialCards, formSettings, cardList } from './utils/constants.js'
 
-const formProfile = new FormValidator(formSettings, '#profilePopupForm')
-const formCard = new FormValidator(formSettings, '#cardPopupForm')
-formProfile.enableValidation()
-formCard.enableValidation()
+const editProfileValidator = new FormValidator(formSettings, '#profilePopupForm')
+const addCardValidator = new FormValidator(formSettings, '#cardPopupForm')
+editProfileValidator.enableValidation()
+addCardValidator.enableValidation()
 
+// Функция создания карточки
+function createCard({name, link}) {
+  const card = new Card(
+    { name, link, cardSelector: '#card' },
+  )
+  const cardElement = card.generateCard()
+
+  return cardElement
+}
+
+const userInfo = new UserInfo({
+  name: '.profile__name',
+  info: '.profile__job',
+})
+
+const popupImage = new PopupWithImage({
+  popup: '#photoPopup',
+  src: item.link,
+  title: item.name,
+})
 // Список карточек
 const itemsList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const cardPopup = new PopupWithImage({
-        popup: '#photoPopup',
-        src: item.link,
-        title: item.name,
-      })
-      const card = new Card(
-        { name: item.name, link: item.link, cardSelector: '#card' },
-        cardPopup.open.bind(cardPopup),
-        cardPopup.close.bind(cardPopup)
-      )
-      const cardElement = card.generateCard()
-      itemsList.addItem(cardElement)
+      const card = createCard({name: item.name, link: item.link})
+      itemsList.addItem(card)
     },
   },
   cardList
 )
 
-const cardPopup = new PopupWithForm({
+const popupAddCard = new PopupWithForm({
   popup: '#cardPopup',
   button: '.profile__add-button',
   handleSubmit: (data) => {
@@ -44,33 +54,20 @@ const cardPopup = new PopupWithForm({
       src: data['link-input'],
       title: data['cardName-input'],
     })
-    const card = new Card(
-      {
-        name: data['cardName-input'],
-        link: data['link-input'],
-        cardSelector: '#card',
-      },
-      cardPopup.open.bind(cardPopup),
-      cardPopup.close.bind(cardPopup)
-    )
-    const cardElement = card.generateCard()
-    itemsList.addItem(cardElement)
+
+    const card = createCard({ name: data['cardName-input'], data['link-input'] })
+    itemsList.addItem(card)
   },
 })
 
-const profilePopup = new PopupWithForm({
+const popupEditProfile = new PopupWithForm({
   popup: '#profilePopup',
   button: '.profile__edit-button',
   handleSubmit: (data) => {
-    const userInfo = new UserInfo({
-      name: '.profile__name',
-      info: '.profile__job',
-    })
-
     userInfo.setUserInfo({ name: data['name-input'], info: data['job-input'] })
   },
 })
 
-profilePopup.setEventListeners()
-cardPopup.setEventListeners()
+popupEditProfile.setEventListeners()
+popupAddCard.setEventListeners()
 itemsList.renderItems()
