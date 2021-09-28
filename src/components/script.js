@@ -23,8 +23,7 @@ const itemsList = new Section(
       })
       const card = new Card(
         { name: item.name, link: item.link, cardSelector: '#card' },
-        cardPopup.open.bind(cardPopup),
-        cardPopup.close.bind(cardPopup)
+        cardPopup.open.bind(cardPopup)
       )
       const cardElement = card.generateCard()
       itemsList.addItem(cardElement)

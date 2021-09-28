@@ -1,12 +1,9 @@
-const popupCloseButton = document.querySelector('#photoClose')
-
 export default class Card {
-  constructor({ name, link, cardSelector }, handleCardClick, handleCardClose) {
+  constructor({ name, link, cardSelector }, handleCardClick) {
     this._name = name
     this._link = link
     this._cardSelector = cardSelector
     this._handleCardClick = handleCardClick
-    this._handleCardClose = handleCardClose
   }
 
   _getTemplate() {
@@ -42,9 +39,6 @@ export default class Card {
       .addEventListener('click', () => {
         this._handleCardClick()
       })
-    popupCloseButton.addEventListener('click', () => {
-      this._handleCardClose()
-    })
   }
 
   generateCard() {
