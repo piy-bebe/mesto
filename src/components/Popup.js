@@ -1,8 +1,6 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector)
-    this._kek = popupSelector
-    console.log(this._kek)
   }
 
   open() {
@@ -20,17 +18,17 @@ export default class Popup {
   }
 
   setEventListeners() {
-
-
-    document.querySelector('#photoPopup').addEventListener('click', (e) => {
+    this._popupElement.addEventListener('click', (e) => {
       if (e.target.classList.contains('popup')) {
-        alert(this._kek)
+        this.close()
       }
     })
 
-    document.querySelector('#photoClose').addEventListener('click', () => {
-      this.close()
-    })
+    this._popupElement
+      .querySelector('.popup__close')
+      .addEventListener('click', () => {
+        this.close()
+      })
   }
 
   _handleEscClose(e) {

@@ -8,37 +8,37 @@ import PopupWithForm from './components/PopupWithForm.js'
 import UserInfo from './components/UserInfo.js'
 import { initialCards, formSettings, cardList } from './utils/constants.js'
 
-const editProfileValidator = new FormValidator(formSettings, '#profilePopupForm')
+const editProfileValidator = new FormValidator(
+  formSettings,
+  '#profilePopupForm'
+)
 const addCardValidator = new FormValidator(formSettings, '#cardPopupForm')
 editProfileValidator.enableValidation()
 addCardValidator.enableValidation()
 
 // Функция создания карточки
-function createCard({name, link}) {
-  const card = new Card(
-    { name, link, cardSelector: '#card' },
-  )
+function createCard({ name, link }, handleCardClick) {
+  const card = new Card({ name, link }, handleCardClick)
   const cardElement = card.generateCard()
 
   return cardElement
 }
+
+const popupImage = new PopupWithImage('#photoPopup')
 
 const userInfo = new UserInfo({
   name: '.profile__name',
   info: '.profile__job',
 })
 
-const popupImage = new PopupWithImage({
-  popup: '#photoPopup',
-  src: item.link,
-  title: item.name,
-})
 // Список карточек
 const itemsList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = createCard({name: item.name, link: item.link})
+      const card = createCard({ name: item.name, link: item.link }, () => {
+        popupImage.open({ src: item.link, title: item.name })
+      })
       itemsList.addItem(card)
     },
   },
@@ -46,28 +46,43 @@ const itemsList = new Section(
 )
 
 const popupAddCard = new PopupWithForm({
-  popup: '#cardPopup',
-  button: '.profile__add-button',
+  popupSelector: '#cardPopup',
   handleSubmit: (data) => {
-    const cardPopup = new PopupWithImage({
-      popup: '#photoPopup',
-      src: data['link-input'],
-      title: data['cardName-input'],
-    })
-
-    const card = createCard({ name: data['cardName-input'], data['link-input'] })
+    const card = createCard(
+      {
+        name: data['cardName-input'],
+        link: data['link-input'],
+      },
+      () => {
+        popupImage.open({ src: item.link, title: item.name })
+      }
+    )
     itemsList.addItem(card)
   },
 })
 
 const popupEditProfile = new PopupWithForm({
-  popup: '#profilePopup',
-  button: '.profile__edit-button',
+  popupSelector: '#profilePopup',
   handleSubmit: (data) => {
     userInfo.setUserInfo({ name: data['name-input'], info: data['job-input'] })
   },
 })
 
 popupEditProfile.setEventListeners()
+popupImage.setEventListeners()
 popupAddCard.setEventListeners()
 itemsList.renderItems()
+
+document.querySelector('.profile__add-button').addEventListener('click', () => {
+  popupAddCard.open()
+})
+
+document
+  .querySelector('.profile__edit-button')
+  .addEventListener('click', () => {
+    document.querySelector('#name-input').value =
+      document.querySelector('.profile__name').textContent
+    document.querySelector('#job-input').value =
+      document.querySelector('.profile__job').textContent
+    popupEditProfile.open()
+  })

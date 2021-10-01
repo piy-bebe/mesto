@@ -1,20 +1,24 @@
 import Popup from './Popup.js'
 
 export default class PopupWithForm extends Popup {
-  constructor({ popup, button, handleSubmit }) {
-    super(popup)
+  constructor({ popupSelector, handleSubmit }) {
+    super(popupSelector)
     this._handleSubmit = handleSubmit
-    this._buttonSelector = document.querySelector(button)
     this._form = this._popupElement.querySelector('.popup__form')
+    this._button = this._form.querySelector('.popup__button')
+  }
+
+  _disableSubmitButton() {
+    this._button.setAttribute('disabled', true)
   }
 
   close() {
     super.close()
-    if(this._form) { 
-      this._form.reset() 
-      this._form.querySelector('.popup__button').setAttribute("disabled", true)
-      this._form.querySelector('.popup__button').classList.add('popup__button_inactive')
-    }
+    this._form.reset()
+    this._disableSubmitButton()
+    this._form
+      .querySelector('.popup__button')
+      .classList.add('popup__button_inactive')
   }
 
   _getInputValues() {
@@ -27,24 +31,20 @@ export default class PopupWithForm extends Popup {
     return this._formValues
   }
 
-  open() {
-    super.open()
-    document.querySelector('#name-input').value = document.querySelector('.profile__name').textContent
-    document.querySelector('#job-input').value = document.querySelector('.profile__job').textContent
-  }
+  // open() {
+  //   super.open()
+  //   document.querySelector('#name-input').value =
+  //     document.querySelector('.profile__name').textContent
+  //   document.querySelector('#job-input').value =
+  //     document.querySelector('.profile__job').textContent
+  // }
 
   setEventListeners() {
     super.setEventListeners()
 
-    this._buttonSelector.addEventListener('click', () => {
-      this.open()
-    })
-
-    this._popupElement
-      .querySelector('.popup__close')
-      .addEventListener('click', () => {
-        this.close()
-      })
+    // this._button.addEventListener('click', () => {
+    //   this.open()
+    // })
 
     this._popupElement.addEventListener('submit', (evt) => {
       evt.preventDefault()

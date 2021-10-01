@@ -5,17 +5,16 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this._data = {
+    this._userData = {
       name: this._name.textContent,
       info: this._info.textContent,
     }
 
-    return this._data
+    return this._userData
   }
 
   setUserInfo({ name, info }) {
     this._name.textContent = name
     this._info.textContent = info
-
   }
 }

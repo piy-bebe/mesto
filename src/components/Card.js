@@ -1,14 +1,13 @@
 export default class Card {
-  constructor({ name, link, cardSelector }, handleCardClick) {
+  constructor({ name, link }, handleCardClick) {
     this._name = name
     this._link = link
-    this._cardSelector = cardSelector
     this._handleCardClick = handleCardClick
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(this._cardSelector)
+      .querySelector('#card')
       .content.querySelector('.elements__element')
       .cloneNode(true)
 
