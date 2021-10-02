@@ -37,3 +37,7 @@ export const formSettings = {
 export const cardList = '.elements'
 export const profileName = document.querySelector('.profile__name')
 export const profileJob = document.querySelector('.profile__job')
+export const profileAddButton = document.querySelector('.profile__add-button')
+export const profileEditButton = document.querySelector('.profile__edit-button')
+export const nameInputId = document.querySelector('#name-input')
+export const jobInputId = document.querySelector('#job-input')

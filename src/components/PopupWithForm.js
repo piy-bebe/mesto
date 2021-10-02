@@ -10,15 +10,13 @@ export default class PopupWithForm extends Popup {
 
   _disableSubmitButton() {
     this._button.setAttribute('disabled', true)
+    this._button.classList.add('popup__button_inactive')
   }
 
   close() {
     super.close()
     this._form.reset()
     this._disableSubmitButton()
-    this._form
-      .querySelector('.popup__button')
-      .classList.add('popup__button_inactive')
   }
 
   _getInputValues() {
@@ -30,21 +28,9 @@ export default class PopupWithForm extends Popup {
 
     return this._formValues
   }
-
-  // open() {
-  //   super.open()
-  //   document.querySelector('#name-input').value =
-  //     document.querySelector('.profile__name').textContent
-  //   document.querySelector('#job-input').value =
-  //     document.querySelector('.profile__job').textContent
-  // }
-
+  
   setEventListeners() {
     super.setEventListeners()
-
-    // this._button.addEventListener('click', () => {
-    //   this.open()
-    // })
 
     this._popupElement.addEventListener('submit', (evt) => {
       evt.preventDefault()

@@ -1,12 +1,12 @@
-import './pages/index.css'
+import './index.css'
 
-import Card from './components/Card.js'
-import Section from './components/Section.js'
-import FormValidator from './components/FormValidator.js'
-import PopupWithImage from './components/PopupWithImage.js'
-import PopupWithForm from './components/PopupWithForm.js'
-import UserInfo from './components/UserInfo.js'
-import { initialCards, formSettings, cardList } from './utils/constants.js'
+import Card from '../components/Card.js'
+import Section from '../components/Section.js'
+import FormValidator from '../components/FormValidator.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import UserInfo from '../components/UserInfo.js'
+import { initialCards, formSettings, cardList, profileAddButton, profileEditButton, nameInputId, jobInputId } from '../utils/constants.js'
 
 const editProfileValidator = new FormValidator(
   formSettings,
@@ -73,16 +73,12 @@ popupImage.setEventListeners()
 popupAddCard.setEventListeners()
 itemsList.renderItems()
 
-document.querySelector('.profile__add-button').addEventListener('click', () => {
+profileAddButton.addEventListener('click', () => {
   popupAddCard.open()
 })
 
-document
-  .querySelector('.profile__edit-button')
-  .addEventListener('click', () => {
-    document.querySelector('#name-input').value =
-      document.querySelector('.profile__name').textContent
-    document.querySelector('#job-input').value =
-      document.querySelector('.profile__job').textContent
-    popupEditProfile.open()
-  })
+profileEditButton.addEventListener('click', () => {
+  nameInputId.value = userInfo.getUserInfo().name
+  jobInputId.value = userInfo.getUserInfo().info
+  popupEditProfile.open()
+})
