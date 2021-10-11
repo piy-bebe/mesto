@@ -5,6 +5,7 @@
   border: none;
   background-color: transparent;
   transition: .2s;
+  margin-bottom: 3px;
 }
 
 .elements__like:hover {

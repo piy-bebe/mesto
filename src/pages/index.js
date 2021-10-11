@@ -25,8 +25,8 @@ editProfileValidator.enableValidation()
 addCardValidator.enableValidation()
 
 // Функция создания карточки
-function createCard({ name, link }, handleCardClick) {
-  const card = new Card({ name, link }, handleCardClick)
+function createCard({ name, link, likes }, handleCardClick) {
+  const card = new Card({ name, link, likes}, handleCardClick)
   const cardElement = card.generateCard()
 
   return cardElement
@@ -39,23 +39,7 @@ const userInfo = new UserInfo({
   info: '.profile__job',
 })
 
-// Список карточек
 
-const popupAddCard = new PopupWithForm({
-  popupSelector: '#cardPopup',
-  handleSubmit: (data) => {
-    const card = createCard(
-      {
-        name: data['cardName-input'],
-        link: data['link-input'],
-      },
-      () => {
-        popupImage.open({ src: item.link, title: item.name })
-      }
-    )
-    itemsList.addItem(card)
-  },
-})
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-28',
@@ -74,11 +58,12 @@ api.getUser().then((data) => {
 
 // Загрузка карточек с сервера
 api.getInitialsCards().then((data) => {
+
   const itemsList = new Section(
     {
       items: data,
       renderer: (item) => {
-        const card = createCard({ name: item.name, link: item.link }, () => {
+        const card = createCard({ name: item.name, link: item.link, likes: item.likes.length }, () => {
           popupImage.open({ src: item.link, title: item.name })
         })
         itemsList.addItem(card)
@@ -87,6 +72,25 @@ api.getInitialsCards().then((data) => {
     cardList
   )
   itemsList.renderItems()
+})
+
+// Список карточек
+
+const popupAddCard = new PopupWithForm({
+  popupSelector: '#cardPopup',
+  handleSubmit: (data) => {
+    const card = createCard(
+      {
+        name: data['cardName-input'],
+        link: data['link-input'],
+      },
+      () => {
+        popupImage.open({ src: item.link, title: item.name })
+      }
+    )
+    api.setCard({name: data['cardName-input'], link: data['link-input']})
+    document.querySelector(cardList).prepend(card)
+  },
 })
 
 // Редактирование профиля
