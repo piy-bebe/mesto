@@ -1,9 +1,11 @@
 export default class Card {
-  constructor({ name, link, likes }, handleCardClick) {
+  constructor({ name, link, likes, ownerId }, handleCardClick, handleCardDelete) {
     this._name = name
     this._link = link
     this._likes = likes
+    this._ownerId = ownerId
     this._handleCardClick = handleCardClick
+    this._handleCardDelete = handleCardDelete
   }
 
   _getTemplate() {
@@ -29,11 +31,16 @@ export default class Card {
     this._element.addEventListener('click', (evt) => {
       this._handleLike(evt)
     })
-    this._element
+
+    if(this._ownerId === "8dceed107174cd6abf1932ff") {
+      this._element
       .querySelector('.elements__trash')
       .addEventListener('click', (evt) => {
-        this._handleTrash(evt)
+        this._handleCardDelete(this._element)
       })
+    }
+
+
     this._element
       .querySelector('.elements__photo')
       .addEventListener('click', () => {
@@ -43,6 +50,12 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate()
+
+    if(this._ownerId !== "8dceed107174cd6abf1932ff") {
+      this._element.querySelector('.elements__trash').remove()
+    }
+
+
     this._setEventListeners()
 
     this._element.querySelector('.elements__title').textContent = this._name
