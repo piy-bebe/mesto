@@ -3,6 +3,17 @@ export default class Api {
     this._baseUrl = baseUrl;
     this._token = headers.authorization;
     this._contentType = headers["Content-Type"];
+
+
+
+  }
+
+  getMe() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: {
+        authorization: this._token
+      }
+    })
   }
 
   getInitialsCards() {
@@ -46,7 +57,7 @@ export default class Api {
       method: "PATCH",
       headers: {
         authorization: this._token,
-        "Content-Type": "application/json",
+        "Content-Type": this._contentType,
       },
       body: JSON.stringify({
         name,
@@ -66,11 +77,11 @@ export default class Api {
   }
 
   setCard({ name, link }) {
-    fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: {
         authorization: this._token,
-        "Content-Type": "application/json",
+        "Content-Type": this._contentType,
       },
       body: JSON.stringify({
         name,
@@ -88,4 +99,52 @@ export default class Api {
           console.log(err);
         })
   }
+
+  deleteCard(id) {
+    fetch(`${this._baseUrl}/cards/${id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+        'Content-Type': this._contentType,
+      }
+    }).then(res => {
+      if(res.ok) {
+        return res.json()
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  like(id) {
+    fetch(`${this._baseUrl}/cards/likes/${id}`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token,
+        'Content-Type': this._contentType,
+      }
+    })
+  }
+
+  unLike(id) {
+    fetch(`${this._baseUrl}/cards/likes/${id}`,  {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+        'Content-Type': this._contentType
+      }
+    })
+  }
+
+  getCard(id) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'GET',
+      headers: {
+        authorization: this._token
+      }
+    })
+  }
+
 }
