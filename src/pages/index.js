@@ -14,6 +14,7 @@ import {
   profileEditButton,
   nameInputId,
   jobInputId,
+  profileAvatar
 } from "../utils/constants.js";
 
 const editProfileValidator = new FormValidator(
@@ -21,8 +22,11 @@ const editProfileValidator = new FormValidator(
   "#profilePopupForm"
 );
 const addCardValidator = new FormValidator(formSettings, "#cardPopupForm");
+const editAvatarValidator = new FormValidator(formSettings, "#editAvatarForm")
+
 editProfileValidator.enableValidation();
 addCardValidator.enableValidation();
+editAvatarValidator.enableValidation();
 
 
 const popupImage = new PopupWithImage("#photoPopup");
@@ -39,6 +43,8 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+
 
 // Загрузка информации о пользователе с сервера
 api.getUser().then((data) => {
@@ -59,6 +65,15 @@ function createCard({ name, link, likes, ownerId, cardId, isLike }, handleCardCl
 
   return cardElement;
 }
+
+const popupEditAvatar = new PopupWithForm({
+  popupSelector: "#editAvatar",
+  handleSubmit: () => {
+    alert('123')
+  }
+})
+
+
 
 // Попап удаление карточки
 const popupDeleteCard = new PopupWithForm({
@@ -216,6 +231,12 @@ popupDeleteCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupImage.setEventListeners();
 popupAddCard.setEventListeners();
+popupEditAvatar.setEventListeners();
+
+
+profileAvatar.addEventListener("click", () => {
+  popupEditAvatar.open()
+})
 
 profileAddButton.addEventListener("click", () => {
   popupAddCard.open();

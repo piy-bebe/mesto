@@ -16,11 +16,12 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
+        <!-- <div
           src="<%=require('./images/Avatar.png')%>"
           class="profile__avatar"
           alt="Аватар"
-        />
+        ></div> -->
+        <div class="profile__avatar"></div>
         <div class="profile__profile-info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
@@ -39,6 +40,40 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+
+    <!-- Попап редактирования аватарки -->
+
+    <div class="popup" id="editAvatar">
+      <div class="popup__container">
+        <button
+          type="button"
+          class="popup__close page__button-hover"
+        ></button>
+        <form
+          name="editAvatarForm"
+          class="popup__form"
+          id="editAvatarForm"
+          novalidate
+        >
+          <h2 class="popup__title">Обновить аватар</h2>
+          <label class="popup__field">
+            <input
+              type="url"
+              name="avatarSrc"
+              class="popup__input"
+              id="avatarSrc"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="avatarSrc-error popup__input-error"></span>
+          </label>
+          <button type="submit" class="popup__button" id="editAvatarSave">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
+
 
     <!-- Попап удаления карточки -->
 
