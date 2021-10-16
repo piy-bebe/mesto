@@ -11,7 +11,6 @@ export default class PopupWithForm extends Popup {
 
   _disableSubmitButton() {
     this._button.setAttribute('disabled', true)
-    this._button.classList.add('popup__button_inactive')
   }
 
   close() {
@@ -45,4 +44,10 @@ export default class PopupWithForm extends Popup {
       }
     })
   }
+
+  renderLoading(textLoading) {
+      this._popupElement.querySelector(".popup__button").textContent = textLoading
+  }
+
+
 }

@@ -7,6 +7,7 @@ export const formSettings = {
   buttonInactive: 'popup__button_inactive',
 }
 
+export const templateCard = '#card'
 export const cardList = '.elements'
 export const profileName = document.querySelector('.profile__name')
 export const profileJob = document.querySelector('.profile__job')

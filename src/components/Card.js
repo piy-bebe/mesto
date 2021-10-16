@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ name, link, likes, ownerId, cardId, isLike }, handleCardClick, handleCardDelete, handleCardLike) {
+  constructor({ name, link, likes, ownerId, cardId, isLike, userId }, handleCardClick, handleCardDelete, handleCardLike, template) {
     this._name = name
     this._link = link
     this._likes = likes
@@ -10,11 +10,13 @@ export default class Card {
     this._isLike = isLike
 
     this._cardId = cardId
+    this._template = template
+    this._userId = userId
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector('#card')
+      .querySelector(this._template)
       .content.querySelector('.elements__element')
       .cloneNode(true)
 
@@ -25,23 +27,16 @@ export default class Card {
     this._element.remove()
   }
 
-  // _handleLike(evt) {
-  //   const target = evt.target.closest('.elements__like')
-  //   if (!target) return
-  //   target.classList.toggle('elements__like_active')
-  //   if(target.classList.contains('elements__like_active')) {
-  //     this._handleCardLike(this._cardId, true)
-  //   } else {
-  //     this._handleCardLike(this._cardId, false)
-  //   }
-  // }
+  setLike() {
+    this._isLike = !this._isLike
+  }
 
   _setEventListeners() {
     this._element.addEventListener('click', (evt) => {
-      this._handleCardLike(evt, this._cardId)
+      this._handleCardLike(evt, this._cardId, this._isLike, this)
     })
 
-    if(this._ownerId === "8dceed107174cd6abf1932ff") {
+    if(this._ownerId === this._userId) {
       this._element
       .querySelector('.elements__trash')
       .addEventListener('click', (evt) => {
@@ -62,7 +57,7 @@ export default class Card {
     if(this._isLike) {
       this._element.querySelector('.elements__like').classList.add('elements__like_active')
     }
-    if(this._ownerId !== "8dceed107174cd6abf1932ff") {
+    if(this._ownerId !== this._userId) {
       this._element.querySelector('.elements__trash').remove()
     }
 

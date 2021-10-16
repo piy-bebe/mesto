@@ -3,9 +3,13 @@ export default class Api {
     this._baseUrl = baseUrl;
     this._token = headers.authorization;
     this._contentType = headers["Content-Type"];
+  }
 
-
-
+  _checkResponse(res) {
+    if(res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
   }
 
   getMe() {
@@ -13,7 +17,7 @@ export default class Api {
       headers: {
         authorization: this._token
       }
-    })
+    }).then(this._checkResponse)
   }
 
   getInitialsCards() {
@@ -21,7 +25,7 @@ export default class Api {
       headers: {
         authorization: this._token,
       },
-    })
+    }).then(this._checkResponse)
   }
 
   getUser() {
@@ -29,7 +33,7 @@ export default class Api {
       headers: {
         authorization: this._token,
       },
-    })
+    }).then(this._checkResponse)
   }
 
   setUser({ name, about }) {
@@ -43,7 +47,7 @@ export default class Api {
         name,
         about,
       }),
-    })
+    }).then(this._checkResponse)
   }
 
   setCard({ name, link }) {
@@ -57,7 +61,7 @@ export default class Api {
         name,
         link,
       })
-    })
+    }).then(this._checkResponse)
   }
 
   deleteCard(id) {
@@ -67,27 +71,27 @@ export default class Api {
         authorization: this._token,
         'Content-Type': this._contentType,
       }
-    })
+    }).then(this._checkResponse)
   }
 
   like(id) {
-    fetch(`${this._baseUrl}/cards/likes/${id}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: 'PUT',
       headers: {
         authorization: this._token,
         'Content-Type': this._contentType,
       }
-    })
+    }).then(this._checkResponse)
   }
 
   unLike(id) {
-    fetch(`${this._baseUrl}/cards/likes/${id}`,  {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`,  {
       method: 'DELETE',
       headers: {
         authorization: this._token,
         'Content-Type': this._contentType
       }
-    })
+    }).then(this._checkResponse)
   }
 
   getCard(id) {
@@ -96,7 +100,7 @@ export default class Api {
       headers: {
         authorization: this._token
       }
-    })
+    }).then(this._checkResponse)
   }
 
   setAvatar(avatar) {
@@ -109,6 +113,6 @@ export default class Api {
       body: JSON.stringify({
         avatar
       })
-    })
+    }).then(this._checkResponse)
   }
 }
