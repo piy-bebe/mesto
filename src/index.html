@@ -8,7 +8,7 @@
   </head>
   <body class="page">
     <header class="header">
-      <img
+        <img
         class="header__logo"
         src="<%=require('./images/logo.svg')%>"
         alt="Логотип"
@@ -16,12 +16,13 @@
     </header>
     <main class="content">
       <section class="profile">
-        <!-- <div
-          src="<%=require('./images/Avatar.png')%>"
-          class="profile__avatar"
-          alt="Аватар"
-        ></div> -->
-        <div class="profile__avatar"></div>
+        <div class="profile__wrapplogo">
+          <img
+            src="<%=require('./images/Avatar.png')%>"
+            class="profile__avatar"
+            alt="Аватар"
+          />
+        </div>
         <div class="profile__profile-info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
@@ -45,10 +46,7 @@
 
     <div class="popup" id="editAvatar">
       <div class="popup__container">
-        <button
-          type="button"
-          class="popup__close page__button-hover"
-        ></button>
+        <button type="button" class="popup__close page__button-hover"></button>
         <form
           name="editAvatarForm"
           class="popup__form"
@@ -74,20 +72,12 @@
       </div>
     </div>
 
-
     <!-- Попап удаления карточки -->
 
     <div class="popup" id="deleteCard">
       <div class="popup__container">
-        <button
-          type="button"
-          class="popup__close page__button-hover"
-        ></button>
-        <form
-          name="deleteCardForm"
-          class="popup__form"
-          id="deleteCardForm"
-        >
+        <button type="button" class="popup__close page__button-hover"></button>
+        <form name="deleteCardForm" class="popup__form" id="deleteCardForm">
           <h2 class="popup__title">Вы уверены?</h2>
           <button type="submit" class="popup__button" id="deleteCardButton">
             Да
@@ -205,7 +195,7 @@
             <button type="button" class="elements__like"></button>
             <span class="elements__count"></span>
           </div>
-          </div>
+        </div>
       </article>
     </template>
   </body>

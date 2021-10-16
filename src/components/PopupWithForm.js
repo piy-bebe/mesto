@@ -39,11 +39,9 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault()
       if(this.card) {
         this._handleSubmit()
-        super.close()
       }
       else {
         this._handleSubmit(this._getInputValues())
-        this.close()
       }
     })
   }

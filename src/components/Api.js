@@ -22,16 +22,6 @@ export default class Api {
         authorization: this._token,
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   getUser() {
@@ -40,20 +30,10 @@ export default class Api {
         authorization: this._token,
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   setUser({ name, about }) {
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._token,
@@ -64,16 +44,6 @@ export default class Api {
         about,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   setCard({ name, link }) {
@@ -88,33 +58,15 @@ export default class Api {
         link,
       })
     })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-
-          return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
   }
 
   deleteCard(id) {
-    fetch(`${this._baseUrl}/cards/${id}`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token,
         'Content-Type': this._contentType,
       }
-    }).then(res => {
-      if(res.ok) {
-        return res.json()
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }).catch(err => {
-      console.log(err)
     })
   }
 
@@ -147,4 +99,16 @@ export default class Api {
     })
   }
 
+  setAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        avatar
+      })
+    })
+  }
 }
