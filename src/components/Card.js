@@ -27,8 +27,9 @@ export default class Card {
     this._element.remove()
   }
 
-  setLike() {
+  updateLikes(likes) {
     this._isLike = !this._isLike
+    return likes.length;
   }
 
   _setEventListeners() {
@@ -43,8 +44,6 @@ export default class Card {
         this._handleCardDelete(this._element, this._cardId)
       })
     }
-
-
     this._element
       .querySelector('.elements__photo')
       .addEventListener('click', () => {

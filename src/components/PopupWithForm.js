@@ -9,14 +9,9 @@ export default class PopupWithForm extends Popup {
     this.card = card
   }
 
-  _disableSubmitButton() {
-    this._button.setAttribute('disabled', true)
-  }
-
   close() {
     if(!this.card) {
       this._form.reset()
-      this._disableSubmitButton()
     }
     super.close()
   }
@@ -36,17 +31,12 @@ export default class PopupWithForm extends Popup {
 
     this._popupElement.addEventListener('submit', (evt) => {
       evt.preventDefault()
-      if(this.card) {
-        this._handleSubmit()
-      }
-      else {
         this._handleSubmit(this._getInputValues())
-      }
     })
   }
 
   renderLoading(textLoading) {
-      this._popupElement.querySelector(".popup__button").textContent = textLoading
+    this._button.textContent = textLoading
   }
 
 

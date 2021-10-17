@@ -58,26 +58,18 @@ const itemsList = new Section(
   cardList
 );
 
-Promise.all(promises).then((data) => {
-  // Получаем информацию о пользователе
-  const user = data[0];
-
+Promise.all(promises).then(([user, cards]) => {
   // Устанавливаем id пользователя
   userInfo.setUserId(user._id);
 
   // Подгружаем пользователя
-  userInfo.setUserInfo({
-    name: user.name,
-    about: user.about,
-    avatar: user.avatar,
-  });
-
-  // Получаем карточки
-  const cards = data[1];
+  userInfo.setUserInfo(user);
 
   // Добавляем карточки на страницу
   itemsList.renderItems(cards);
-});
+}).catch(err => {
+  console.log(err)
+})
 
 // Функция создания карточки
 function createCard(item) {
@@ -109,16 +101,20 @@ function createCard(item) {
       const likeCount = evt.currentTarget.querySelector(".elements__count");
       if (!target) return;
 
-      target.classList.toggle("elements__like_active");
+
 
       like
         ? api.unLike(id).then((data) => {
-            card.setLike()
-            likeCount.textContent = data.likes.length;
+            target.classList.toggle("elements__like_active");
+            likeCount.textContent = card.updateLikes(data.likes)
+          }).catch(err => {
+            console.log(err)
           })
         : api.like(id).then((data) => {
-            likeCount.textContent = data.likes.length;
-            card.setLike()
+            target.classList.toggle("elements__like_active");
+            likeCount.textContent = card.updateLikes(data.likes)
+          }).catch(err => {
+            console.log(err)
           })
     },
     templateCard
@@ -196,29 +192,21 @@ const popupAddCard = new PopupWithForm({
 const popupEditProfile = new PopupWithForm({
   popupSelector: "#profilePopup",
   handleSubmit: (data) => {
-    document
-      .querySelector("#profilePopup")
-      .querySelector(".popup__button").textContent += "...";
+    popupEditProfile.renderLoading("Сохраняем...");
     api
       .setUser({ name: data["name-input"], about: data["job-input"] })
       .then((res) => {
-        if (res.ok) {
           userInfo.setUserInfo({
             name: data["name-input"],
             about: data["job-input"],
           });
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
+          popupEditProfile.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        document
-          .querySelector("#profilePopup")
-          .querySelector(".popup__button").textContent = "Сохранить";
-        popupEditProfile.close();
+        popupEditProfile.renderLoading("Сохранить");
       });
   },
 });
@@ -230,6 +218,7 @@ popupAddCard.setEventListeners();
 popupEditAvatar.setEventListeners();
 
 profileAvatar.addEventListener("click", () => {
+  editAvatarValidator.resetValidation()
   popupEditAvatar.open();
 });
 
@@ -239,6 +228,7 @@ profileAddButton.addEventListener("click", () => {
 });
 
 profileEditButton.addEventListener("click", () => {
+  editProfileValidator.resetValidation()
   nameInputId.value = userInfo.getUserInfo().name;
   jobInputId.value = userInfo.getUserInfo().about;
 
