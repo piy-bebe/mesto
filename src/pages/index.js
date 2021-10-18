@@ -196,10 +196,7 @@ const popupEditProfile = new PopupWithForm({
     api
       .setUser({ name: data["name-input"], about: data["job-input"] })
       .then((res) => {
-          userInfo.setUserInfo({
-            name: data["name-input"],
-            about: data["job-input"],
-          });
+          userInfo.setUserInfo(res);
           popupEditProfile.close();
       })
       .catch((err) => {
